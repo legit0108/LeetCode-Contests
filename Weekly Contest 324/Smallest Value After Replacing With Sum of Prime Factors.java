@@ -71,11 +71,10 @@ class Solution {
     private void init(){
         smallestPrimeFactor = new Integer[MAX_SIZE];
         
-        for(int num=2; num<MAX_SIZE;num++) smallestPrimeFactor[num] = num;
+        for(int num=2; num<MAX_SIZE; num++) smallestPrimeFactor[num] = num;
         
         for(int prime=2; prime*prime<MAX_SIZE; prime++){
             if(smallestPrimeFactor[prime]==prime){
-                smallestPrimeFactor[prime] = prime;
                 
                 for(int num=prime*prime; num<MAX_SIZE; num+=prime){
                     if(smallestPrimeFactor[num]==num) smallestPrimeFactor[num] = prime;
