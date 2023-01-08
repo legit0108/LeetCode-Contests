@@ -1,4 +1,4 @@
-// Expand the expression, terms cancel each other out (a^a = 0), only xor of array remains
+// Expand the expression, terms cancel each other out (a^a = 0), only xor of the array remains
 
 // TC: O(nums.length)
 // SC: O(1)
