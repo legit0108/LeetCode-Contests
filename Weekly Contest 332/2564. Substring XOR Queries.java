@@ -4,7 +4,6 @@
 // Also, (val ^ first == second) implies (first ^ second == val)
 
 // TC: O(32*len + totalQueries)
-
 // SC: O(32*len)
 
 class Solution {
