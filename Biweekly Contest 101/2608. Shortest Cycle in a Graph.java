@@ -1,9 +1,11 @@
 // We can do this by running BFS from every node and finding the minimum cycle length over all cycles
 // We need to run BFS from every node because one component can contain multiple cycles
+// Note that this solution will fail with DFS since DFS does not guarantee the shortest path for a node
 
 // TC: O(V*(V+E))
 // SC: O(V+E)
 // where V = number of vertices, E = number of edges
+
 
 class Solution {
     public int findShortestCycle(int n, int[][] edges) {
