@@ -4,7 +4,7 @@ class Graph {
     private ArrayList<Pair>[] graph;
     private int nodes;
     
-    public Graph(int n, int[][] edges) { // O(1)
+    public Graph(int n, int[][] edges) {
         nodes = n;
         createGraph(edges);
     }
