@@ -23,6 +23,26 @@ Lastly, we just remove 8, which takes 1 operation
 Now, how do we split this process into passes in code?
 Since the array has been sorted, ex: [1,2,3,4,5,6,7,8], and we know the index of each element, if we encounter a number with smaller index than previous number, we can split out a pass.
 
+Note that each pass should end in such a way that order of elements in the original array is preserved
+We do not forcefully keep the order preserved, the order is automatically preserved if we simulate operations as asked in the question 
+
+Example: 
+
+5,4,6 -> 4,6,5 -> 6,5 -> 5,6 (first pass requires 3 operations)
+5,6 -> 6 -> [] (second pass requires 2 operations)
+
+Alternate explanation:
+-> We init operations with len for removing each element and instead count rotations in the loop
+-> When we hit our if condition in the loop, not only do we count rotations required for current element,
+   we also count rotations required for the future (look into the future)
+Example:
+    
+   5,4,6 -> sort -> 4, 5, 6
+   when we reach 5 in our sorted array we hit inner if condition
+   So, we count 2 rotations, one for moving 5 to the very back to process 4 in our original array
+   and other rotation for moving elements before 5 to the very back when we will process 5 (we require only 1 such rotation since we only have one element before 5 here i.e. 6)
+
+
 TC: O(nlogn)
 SC: O(n)
 where n = arr.length
