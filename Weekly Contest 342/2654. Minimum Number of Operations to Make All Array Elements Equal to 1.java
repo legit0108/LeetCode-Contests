@@ -98,3 +98,69 @@ class Solution {
         return num1;
     }
 }
+
+
+// Solution-3: Two pass, left to right and right to left
+// We find minimum size subarray with gcd 1 in two passes
+
+// TC: O(len*log(min(nums)))
+// SC: O(1)
+
+class Solution {
+    public int minOperations(int[] nums) {
+        int len = nums.length;
+        int start = 0;
+        int gcd = 0;
+        int minOps = Integer.MAX_VALUE;
+        int ones = 0;
+        
+        // 1st traversal: left to right
+        for(int index=0; index<len; index++){
+            int num = nums[index];
+            if(num==1) ones++;
+            
+            gcd = getGcd(gcd, num);
+            
+            if(index-1>=0 && getGcd(nums[index-1], num)==gcd) start = index-1; // since we want to minimize size of subarray with gcd 1 we set start to a higher index if we obtain a subarray with the same gcd as prefix gcd
+            
+            if(gcd==1){ // the subarray from [start...index] has a gcd of 1
+                minOps = Math.min(minOps, (len-1) + (index-start));
+                gcd = num;
+                start = index;
+            }
+        }
+        
+        gcd = 0;
+        int end = len-1;
+        
+        // 2nd traversal: right to left
+        for(int index=len-1; index>=0; index--){
+            int num = nums[index];
+            
+            gcd = getGcd(gcd, num);
+            
+            if(index+1<len && getGcd(num, nums[index+1])==gcd) end = index+1; // since we want to minimize size of subarray with gcd 1 we set end to a lower index if we obtain a subarray with the same gcd as suffix gcd
+            
+            if(gcd==1){ // the subarray from [index...end] has a gcd of 1
+                minOps = Math.min(minOps, (len-1) + (end-index));
+                gcd = num;
+                end = index;
+            }
+        }
+        
+        if(ones>0) minOps = Math.min(minOps, len-ones);
+        if(minOps==Integer.MAX_VALUE) minOps = -1;
+        
+        return minOps;
+    }
+    
+    private int getGcd(int num1, int num2){
+        while(num2>0){
+            int rem = num1%num2;
+            num1 = num2;
+            num2 = rem;
+        }
+        
+        return num1;
+    }
+}
